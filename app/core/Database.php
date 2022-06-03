@@ -29,8 +29,6 @@ class Database{
     public function query($query)
     {
         $this->stmt = $this->dbh->prepare($query);
-        // $this->stmt->execute();
-        // return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function bind($param, $value, $type = null){
@@ -72,4 +70,7 @@ class Database{
         return $this->stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function rowCount(){
+        return $this->stmt->rowCount();
+    }
 }

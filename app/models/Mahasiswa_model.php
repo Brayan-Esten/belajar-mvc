@@ -1,26 +1,6 @@
 <?php
 
 class Mahasiswa_model{
-    // private $mhs = 
-    // [
-    //     [
-    //         "nama" => "Brayan",
-    //         "umur" => 20,
-    //         "jurusan" => "CompSci"
-    //     ],
-    //     [
-    //         "nama" => "Alpha",
-    //         "umur" => 19,
-    //         "jurusan" => "CompSci"
-    //     ],
-    //     [
-    //         "nama" => "Delta",
-    //         "umur" => 18,
-    //         "jurusan" => "CompSci"
-    //     ]
-    // ];
-
-    // database handler
 
     private $table = 'mahasiswa';
     private $db;
@@ -35,8 +15,30 @@ class Mahasiswa_model{
     }
 
     public function getMhsByID($id){
-        $this->db->query('SELECT * FROM ' . $this->table . ' WHERE id=:id');
+        $this->db->query('SELECT * FROM ' . $this->table . ' WHERE id = :id');
         $this->db->bind('id', $id);
         return $this->db->single();
+    }
+
+    public function insert($data){
+        $query = "INSERT INTO mahasiswa VALUES ('', :nama, :umur, :jurusan)";
+        $this->db->query($query);
+        $this->db->bind('nama', $data['nama']);
+        $this->db->bind('umur', $data['umur']);
+        $this->db->bind('jurusan', $data['jurusan']);
+        $this->db->execute();
+
+        return $this->db->rowCount();
+    }
+
+    public function delete($id){
+        $query = "DELETE FROM mahasiswa WHERE id = :id";
+
+        $this->db->query($query);
+        $this->db->bind('id', $id);
+        $this->db->execute();
+
+        return $this->db->rowCount();
+
     }
 }
